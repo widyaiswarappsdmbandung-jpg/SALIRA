@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123B70">
+  <title>SALIRA | Sistem Administrasi Kartu Kendali Widyaiswara</title>
+  <meta name="description" content="SALIRA - Sistem Administrasi Kartu Kendali Widyaiswara BBPKAPDN II Bandung.">
+
+  <style>
+    :root {
+      --blue: #123B70;
+      --blue-dark: #09284F;
+      --blue-light: #EAF2FC;
+      --yellow: #FFC928;
+      --red: #C62828;
+      --white: #FFFFFF;
+      --text: #243247;
+      --muted: #718096;
+      --border: #E3EAF2;
+      --background: #F4F7FB;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+    }
+
+    .topbar {
+      background: var(--blue-dark);
+      color: white;
+      padding: 11px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 12px;
+    }
+
+    .topbar strong {
+      color: var(--yellow);
+      letter-spacing: .5px;
+    }
+
+    .topbar-right {
+      opacity: .85;
+      text-align: right;
+    }
+
+    header {
+      background: white;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .brand-mark {
+      width: 49px;
+      height: 49px;
+      border-radius: 13px;
+      background: var(--blue);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 800;
+      border-bottom: 5px solid var(--yellow);
+    }
+
+    .brand-name {
+      color: var(--blue);
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: .3px;
+    }
+
+    .header-label {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, var(--blue-dark), var(--blue));
+      color: white;
+      padding: 65px 6% 75px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border: 55px solid rgba(255,255,255,.06);
+      border-radius: 50%;
+      right: -100px;
+      top: -120px;
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 51px);
+      line-height: 1.13;
+      margin-bottom: 18px;
+    }
+
+    .hero-description {
+      color: #DCE8F7;
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 610px;
+    }
+
+    .motto {
+      margin-top: 24px;
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .5px;
+    }
+
+    .login-card {
+      background: white;
+      color: var(--text);
+      padding: 29px;
+      border-radius: 18px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.18);
+    }
+
+    .login-card h2 {
+      color: var(--blue);
+      font-size: 21px;
+      margin-bottom: 9px;
+    }
+
+    .login-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .google-button {
+      width: 100%;
+      padding: 13px;
+      background: #F0F3F7;
+      color: #64748B;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-weight: 700;
+      cursor: not-allowed;
+      font-size: 13px;
+    }
+
+    .login-note {
+      margin-top: 13px;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .login-status {
+      display: inline-block;
+      background: #FFF5D6;
+      color: #805B00;
+      padding: 6px 10px;
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 17px;
+    }
+
+    .content {
+      max-width: 1100px;
+      margin: -27px auto 0;
+      padding: 0 22px 55px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .module {
+      background: white;
+      padding: 23px 18px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      box-shadow: 0 5px 18px rgba(25,50,80,.04);
+    }
+
+    .module-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .module h3 {
+      color: var(--blue);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .module p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .section-heading {
+      margin: 39px 0 17px;
+      color: var(--blue);
+      font-size: 19px;
+    }
+
+    .info-panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .info-symbol {
+      width: 43px;
+      height: 43px;
+      background: #FFF5D6;
+      color: #9A6B00;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .info-panel strong {
+      color: var(--blue);
+      font-size: 13px;
+    }
+
+    .info-panel p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 5px;
+    }
+
+    footer {
+      background: var(--blue-dark);
+      color: #DCE8F7;
+      padding: 24px 6%;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    footer strong {
+      color: var(--yellow);
+    }
+
+    @media (max-width: 800px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .module-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .header-label {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar {
+        padding: 10px 5%;
+        font-size: 10px;
+      }
+
+      header {
+        padding: 15px 5%;
+      }
+
+      .brand-name {
+        font-size: 21px;
+      }
+
+      .hero {
+        padding: 47px 5% 65px;
+      }
+
+      .module-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .module {
+        padding: 17px 13px;
+      }
+
+      .content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div><strong>BBPKAPDN II BANDUNG</strong></div>
+    <div class="topbar-right">Sistem Administrasi Widyaiswara</div>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <div class="brand-name">SALIRA</div>
+        <div class="brand-subtitle">
+          SISTEM ADMINISTRASI KARTU KENDALI WIDYAISWARA
+        </div>
+      </div>
+    </div>
+
+    <div class="header-label">
+      APARATUR PEMERINTAHAN DALAM NEGERI II
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+
+        <div>
+          <div class="eyebrow">DIGITAL WIDYAISWARA MANAGEMENT SYSTEM</div>
+
+          <h1>
+            Kelola Kinerja.<br>
+            Pantau Kontribusi.<br>
+            Tingkatkan Kompetensi.
+          </h1>
+
+          <p class="hero-description">
+            SALIRA merupakan sistem administrasi digital untuk membantu
+            Widyaiswara mengelola jadwal mengajar, aktivitas konversi,
+            perhitungan Jam Pelajaran, dan kartu kendali secara
+            terintegrasi.
+          </p>
+
+          <div class="motto">
+            Karya Widyaiswara bagi Nusantara
+          </div>
+        </div>
+
+        <div class="login-card">
+          <div class="login-status">PERSIAPAN INTEGRASI LOGIN</div>
+
+          <h2>Selamat Datang</h2>
+
+          <p>
+            Masuk ke SALIRA menggunakan akun Google yang telah
+            didaftarkan dan diaktifkan oleh administrator.
+          </p>
+
+          <button class="google-button" type="button" disabled>
+            G  &nbsp; Masuk dengan Akun Google
+          </button>
+
+          <div class="login-note">
+            Fitur login akan diaktifkan setelah konfigurasi
+            autentikasi Google selesai.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="content">
+
+      <div class="module-grid">
+
+        <article class="module">
+          <div class="module-icon">▦</div>
+          <h3>Jadwal Mengajar</h3>
+          <p>Pengelolaan agenda pembelajaran dan pencatatan JP mengajar.</p>
+        </article>
+
+        <article class="module">
+          <div class="module-icon">↗</div>
+          <h3>JP Konversi</h3>
+          <p>Pencatatan aktivitas pengembangan profesi dan konversi JP.</p>
+        </article>
+
+        <article class="module">
+          <div class="module-icon">▤</div>
+          <h3>Kartu Kendali</h3>
+          <p>Rekapitulasi JP mengajar dan JP konversi secara terintegrasi.</p>
+        </article>
+
+        <article class="module">
+          <div class="module-icon">▥</div>
+          <h3>Dashboard</h3>
+          <p>Visualisasi capaian dan perkembangan aktivitas Widyaiswara.</p>
+        </article>
+
+      </div>
+
+      <h2 class="section-heading">Informasi Sistem</h2>
+
+      <div class="info-panel">
+        <div class="info-symbol">i</div>
+        <div>
+          <strong>Penggunaan SALIRA</strong>
+          <p>
+            Sistem ini dirancang untuk penggunaan multi-user.
+            Setiap Widyaiswara akan memiliki akun dan akses data
+            sesuai kewenangannya. Data pribadi hanya dapat diakses
+            oleh pengguna yang berhak.
+          </p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <strong>SALIRA</strong> — Sistem Administrasi Kartu Kendali Widyaiswara<br>
+    BBPKAPDN II Bandung<br>
+    Karya Widyaiswara bagi Nusantara
+  </footer>
+
+</body>
+</html>
