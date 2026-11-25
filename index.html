@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#09264b">
+<meta name="color-scheme" content="light">
 <title>SALIRA | Sistem Administrasi Kartu Kendali Widyaiswara</title>\n<meta name="color-scheme" content="light">
 <meta name="description" content="SALIRA — Sistem Administrasi Kartu Kendali Widyaiswara BBPKAPDN II Bandung. Karya Widyaiswara bagi Nusantara.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23ffe9a6'/%3E%3Cstop offset='1' stop-color='%23c58a18'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M50 4 88 18v31c0 24-16 39-38 47C28 88 12 73 12 49V18z' fill='%230b2d57' stroke='url(%23g)' stroke-width='6'/%3E%3Cpath d='M67 32c-5-7-28-9-31 4-4 15 30 10 29 25-1 13-24 16-35 5' fill='none' stroke='url(%23g)' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -86,6 +87,23 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
 @media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:36px;padding-top:65px}.hero-copy{max-width:760px}.login-card{max-width:520px}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero::before{background-position:center}}
 @media(max-width:560px){.topbar{height:34px;padding:0 5%;font-size:9px}.topbar .right{font-size:9px}header{height:74px;padding:0 5%}.brand-emblem{width:46px;height:52px}.brand{gap:10px}.brand-name{font-size:22px}.brand-sub{font-size:8px;letter-spacing:.06em}.header-right{display:none}.hero-inner{padding:52px 22px 82px;gap:30px}h1{font-size:42px}.hero-description{font-size:13px}.hero-meta{gap:12px;margin-top:25px}.login-card{padding:25px 22px;border-radius:19px}.content{padding:0 14px 45px;margin-top:-34px}.module-grid{gap:10px}.module{padding:18px 14px;border-radius:15px}.module-icon{width:43px;height:43px;margin-bottom:14px}.module h3{font-size:12px}.module p{font-size:10px}.section-heading{font-size:16px;margin-top:32px}.info-panel{padding:18px 16px;align-items:flex-start}.info-panel p{font-size:11px}.b1{width:142px;height:142px;left:4%;top:11%;animation-duration:19s}.b4{width:176px;height:176px;right:4%;top:12%;animation-delay:-3s;animation-duration:21s}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* SALIRA V3.1 AUTHENTICATION */
+.auth-label{display:block;margin:17px 0 7px;color:#294967;font-size:11px;font-weight:800;letter-spacing:.035em}
+.auth-input{display:block;width:100%;height:47px;border:1px solid #d9e3ed;border-radius:10px;padding:0 13px;background:#fff;color:#183653;font:inherit;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
+.auth-input:focus{border-color:#4b9bd1;box-shadow:0 0 0 3px rgba(66,165,232,.14)}
+.password-wrap{position:relative}.password-wrap .auth-input{padding-right:62px}
+.show-password{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#24699c;font-size:10px;font-weight:800;cursor:pointer;padding:8px}
+.auth-submit{cursor:pointer;background:linear-gradient(105deg,#174f83,#247bb6);color:#fff;border:0;box-shadow:0 9px 20px rgba(23,79,131,.18)}
+.auth-submit .google-g{color:#ffdc8c}.auth-submit:disabled{opacity:.68;cursor:wait}
+#loginMessage{min-height:32px}.login-note.error{color:#b42318}.login-note.success{color:#20734b}
+.profile-panel{display:flex;align-items:center;gap:13px;margin-top:22px;padding:15px;border:1px solid #e4ebf2;border-radius:13px;background:#f8fbfe}
+.profile-avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,#fff0b9,#e6b64f);color:#173d65;font-size:19px;font-weight:900}
+.profile-details{min-width:0;display:flex;flex-direction:column;gap:4px}.profile-details strong{font-size:13px;color:#173d65;overflow-wrap:anywhere}.profile-details span{font-size:10px;color:#718198;overflow-wrap:anywhere}.role-chip{align-self:flex-start!important;padding:4px 8px;border-radius:20px;background:#fff3d5;color:#805a16!important;font-weight:800}
+.logout-button{cursor:pointer;background:#fff;color:#a33b32;border:1px solid #efd6d3;margin-top:12px}.logout-button:disabled{opacity:.6;cursor:wait}
+[hidden]{display:none!important}
+@media(max-width:560px){.auth-input{height:45px}}
+
 </style>
 </head>
 <body>
@@ -118,10 +136,25 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
     <svg class="login-mini-emblem" viewBox="0 0 80 90" aria-hidden="true"><path d="M40 3 73 15v29c0 21-13 34-33 42C20 78 7 65 7 44V15z" fill="#0a2b53" stroke="#d7a63e" stroke-width="4"/><path d="M59 27c-5-8-30-10-34 5-4 16 31 11 30 27-1 14-25 17-39 5" fill="none" stroke="#f5d58b" stroke-width="8" stroke-linecap="round"/></svg>
     <span class="status">PORTAL RESMI WIDYAISWARA</span>
    </div>
-   <h2>Selamat Datang</h2>
-   <p>Masuk ke SALIRA menggunakan akun Google yang telah didaftarkan dan diaktifkan oleh administrator.</p>
-   <button class="google-button" type="button" disabled aria-disabled="true"><span class="google-g">G</span>Masuk dengan Akun Google</button>
-   <div class="login-note">Fitur login akan diaktifkan setelah konfigurasi autentikasi Google selesai.</div>
+   <div id="loginView">
+    <h2>Selamat Datang</h2>
+    <p>Masuk ke SALIRA menggunakan email dan kata sandi akun SALIRA yang telah didaftarkan serta diaktifkan oleh administrator.</p>
+    <form id="loginForm" autocomplete="on">
+     <label class="auth-label" for="loginEmail">Alamat Email</label>
+     <input class="auth-input" id="loginEmail" name="email" type="email" autocomplete="username" placeholder="nama@email.com" required>
+     <label class="auth-label" for="loginPassword">Kata Sandi</label>
+     <div class="password-wrap"><input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required><button class="show-password" id="togglePassword" type="button" aria-label="Tampilkan kata sandi">Lihat</button></div>
+     <button class="google-button auth-submit" id="loginButton" type="submit"><span class="google-g">↗</span><span id="loginButtonText">Masuk ke SALIRA</span></button>
+    </form>
+    <div class="login-note" id="loginMessage" role="status" aria-live="polite">Gunakan kredensial SALIRA yang diberikan administrator. Sesi berlaku selama 6 jam.</div>
+   </div>
+   <div id="userView" hidden>
+    <h2>Anda Berhasil Masuk</h2>
+    <p class="signed-in-intro">Selamat datang di ruang kerja SALIRA.</p>
+    <div class="profile-panel"><div class="profile-avatar" id="profileInitial">S</div><div class="profile-details"><strong id="profileName">Pengguna SALIRA</strong><span id="profileEmail"></span><span class="role-chip" id="profileRole"></span></div></div>
+    <div class="login-note" id="sessionMessage">Sesi akun Anda aktif.</div>
+    <button class="google-button logout-button" id="logoutButton" type="button">Keluar dari SALIRA</button>
+   </div>
    <div class="login-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg><span>Akses sistem dirancang sesuai kewenangan pengguna.</span></div>
   </aside>
  </div>
@@ -138,5 +171,139 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
 </section>
 </main>
 <footer><strong>SALIRA</strong> — Sistem Administrasi Kartu Kendali Widyaiswara<br>BBPKAPDN II Bandung<br><span class="footer-motto">Karya Widyaiswara bagi Nusantara</span></footer>
+
+<script>
+(() => {
+  'use strict';
+  // URL deployment Web App SALIRA V3.1 yang diberikan administrator.
+  const API_URL = 'https://script.google.com/a/macros/widyatama.ac.id/s/AKfycbyqIUE96Jeawqi-SjxcnsgeaN0SIIvanUlY3lkDHp4rGddVGwp84Kf2hGlyTUeS6--4/exec';
+  const SESSION_KEY = 'SALIRA_V31_SESSION_TOKEN';
+  const $ = (id) => document.getElementById(id);
+  const loginView = $('loginView');
+  const userView = $('userView');
+  const loginForm = $('loginForm');
+  const loginButton = $('loginButton');
+  const loginButtonText = $('loginButtonText');
+  const loginMessage = $('loginMessage');
+  const logoutButton = $('logoutButton');
+
+  function setMessage(message, kind) {
+    loginMessage.textContent = message;
+    loginMessage.className = 'login-note' + (kind ? ' ' + kind : '');
+  }
+  function safeText(value) { return value == null ? '' : String(value); }
+  function showLogin(message, kind) {
+    loginView.hidden = false;
+    userView.hidden = true;
+    if (message) setMessage(message, kind || '');
+  }
+  function showUser(user) {
+    const name = safeText(user.namaTampilan || user.nama_tampilan || user.email || 'Pengguna SALIRA');
+    const email = safeText(user.email);
+    const role = safeText(user.role || 'PENGGUNA');
+    $('profileName').textContent = name;
+    $('profileEmail').textContent = email;
+    $('profileRole').textContent = role;
+    $('profileInitial').textContent = (name.trim().charAt(0) || 'S').toUpperCase();
+    $('sessionMessage').textContent = 'Status akun: ' + safeText(user.statusAkun || user.status_akun || 'Aktif') + '. Sesi login berlaku maksimal 6 jam.';
+    loginView.hidden = true;
+    userView.hidden = false;
+  }
+  async function apiPost(payload) {
+    // text/plain menghindari CORS preflight; doPost V3.1 membaca JSON dari postData.contents.
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
+      redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) throw new Error('Server mengembalikan HTTP ' + response.status + '.');
+    const raw = await response.text();
+    try { return JSON.parse(raw); }
+    catch (_) { throw new Error('Respons backend bukan JSON yang valid. Pastikan URL /exec dan deployment V3.1 sudah benar.'); }
+  }
+  function explainNetworkError(error) {
+    const message = safeText(error && error.message);
+    if (/failed to fetch|networkerror|load failed/i.test(message)) {
+      return 'Browser tidak dapat membaca respons backend. Periksa akses deployment (Anyone), izin domain, dan konfigurasi CORS pada Apps Script. Jika muncul pesan CORS di Console, backend perlu penyesuaian komunikasi lintas-origin sebelum login dapat digunakan.';
+    }
+    return message || 'Terjadi kesalahan saat menghubungi backend SALIRA.';
+  }
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = $('loginEmail').value.trim().toLowerCase();
+    const password = $('loginPassword').value;
+    if (!email || !password) return;
+    loginButton.disabled = true;
+    loginButtonText.textContent = 'Memeriksa akun…';
+    setMessage('Menghubungkan ke backend SALIRA V3.1…', '');
+    try {
+      const result = await apiPost({ action: 'login', email, password });
+      if (!result || result.success !== true || !result.token || !result.user) {
+        throw new Error((result && result.message) || 'Login ditolak. Periksa email, kata sandi, dan status akun.');
+      }
+      sessionStorage.setItem(SESSION_KEY, result.token);
+      $('loginPassword').value = '';
+      showUser(result.user);
+    } catch (error) {
+      sessionStorage.removeItem(SESSION_KEY);
+      setMessage(explainNetworkError(error), 'error');
+    } finally {
+      loginButton.disabled = false;
+      loginButtonText.textContent = 'Masuk ke SALIRA';
+    }
+  });
+
+  $('togglePassword').addEventListener('click', () => {
+    const field = $('loginPassword');
+    const visible = field.type === 'password';
+    field.type = visible ? 'text' : 'password';
+    $('togglePassword').textContent = visible ? 'Sembunyikan' : 'Lihat';
+    $('togglePassword').setAttribute('aria-label', visible ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+  });
+
+  logoutButton.addEventListener('click', async () => {
+    const token = sessionStorage.getItem(SESSION_KEY);
+    logoutButton.disabled = true;
+    logoutButton.textContent = 'Mengakhiri sesi…';
+    try {
+      if (token) {
+        const result = await apiPost({ action: 'logout', token });
+        if (result && result.success === false) throw new Error(result.message || 'Logout gagal diproses backend.');
+      }
+      sessionStorage.removeItem(SESSION_KEY);
+      showLogin('Anda telah keluar dari SALIRA.', 'success');
+    } catch (error) {
+      // Token tetap dihapus di browser; pesan meminta pemeriksaan backend bila server tak terjangkau.
+      sessionStorage.removeItem(SESSION_KEY);
+      showLogin('Sesi lokal telah dihapus. Konfirmasi logout ke server tidak berhasil: ' + explainNetworkError(error), 'error');
+    } finally {
+      logoutButton.disabled = false;
+      logoutButton.textContent = 'Keluar dari SALIRA';
+    }
+  });
+
+  async function restoreSession() {
+    const token = sessionStorage.getItem(SESSION_KEY);
+    if (!token) return;
+    setMessage('Memulihkan sesi SALIRA…', '');
+    try {
+      const result = await apiPost({ action: 'me', token });
+      if (result && result.success === true && result.user) showUser(result.user);
+      else {
+        sessionStorage.removeItem(SESSION_KEY);
+        showLogin((result && result.message) || 'Sesi telah berakhir. Silakan masuk kembali.', '');
+      }
+    } catch (error) {
+      showLogin('Sesi tersimpan belum dapat diverifikasi. Silakan coba masuk kembali. ' + explainNetworkError(error), 'error');
+    }
+  }
+  restoreSession();
+})();
+</script>
+
 </body>
 </html>
