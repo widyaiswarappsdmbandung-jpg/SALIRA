@@ -209,21 +209,54 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
     loginView.hidden = true;
     userView.hidden = false;
   }
-  async function apiPost(payload) {
-    // text/plain menghindari CORS preflight; doPost V3.1 membaca JSON dari postData.contents.
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'omit',
-      redirect: 'follow',
-      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify(payload)
-    });
-    if (!response.ok) throw new Error('Server mengembalikan HTTP ' + response.status + '.');
-    const raw = await response.text();
-    try { return JSON.parse(raw); }
-    catch (_) { throw new Error('Respons backend bukan JSON yang valid. Pastikan URL /exec dan deployment V3.1 sudah benar.'); }
+  // SALIRA HTML Bridge: requests dikirim melalui iframe Apps Script HTML Service,
+  // kemudian google.script.run memanggil fungsi server tanpa fetch lintas-origin.
+  const bridgeUrl = API_URL + '?action=bridge';
+  let bridgeFrame = null;
+  let bridgeReady = false;
+  const bridgeQueue = [];
+  const bridgePending = new Map();
+  let bridgeCounter = 0;
+  function initBridge() {
+    if (bridgeFrame) return;
+    bridgeFrame = document.createElement('iframe');
+    bridgeFrame.src = bridgeUrl;
+    bridgeFrame.title = 'SALIRA secure communication bridge';
+    bridgeFrame.setAttribute('aria-hidden', 'true');
+    bridgeFrame.style.cssText = 'position:absolute;width:1px;height:1px;border:0;left:-9999px;top:-9999px;';
+    document.body.appendChild(bridgeFrame);
   }
+  window.addEventListener('message', (event) => {
+    if (!bridgeFrame || event.source !== bridgeFrame.contentWindow) return;
+    const data = event.data;
+    if (!data || data.type !== 'SALIRA_BRIDGE_RESULT') return;
+    if (data.ready) {
+      bridgeReady = true;
+      while (bridgeQueue.length) sendBridgeRequest(bridgeQueue.shift());
+      return;
+    }
+    const pending = bridgePending.get(data.id);
+    if (!pending) return;
+    clearTimeout(pending.timeout);
+    bridgePending.delete(data.id);
+    if (data.error) pending.reject(new Error(data.error));
+    else pending.resolve(data.result);
+  });
+  function sendBridgeRequest(item) {
+    if (!bridgeReady || !bridgeFrame) { bridgeQueue.push(item); return; }
+    bridgeFrame.contentWindow.postMessage({type:'SALIRA_BRIDGE_REQUEST', id:item.id, payload:item.payload}, 'https://widyaiswarappsdmbandung-jpg.github.io');
+  }
+  function apiPost(payload) {
+    initBridge();
+    return new Promise((resolve, reject) => {
+      const id = 'salira-' + (++bridgeCounter) + '-' + Date.now();
+      const timeout = setTimeout(() => { bridgePending.delete(id); reject(new Error('Bridge SALIRA tidak merespons. Pastikan deployment Apps Script terbaru sudah diperbarui dan akses web app tersedia.')); }, 20000);
+      bridgePending.set(id, {resolve, reject, timeout});
+      const item = {id, payload};
+      if (bridgeReady) sendBridgeRequest(item); else bridgeQueue.push(item);
+    });
+  }
+  initBridge();
   function explainNetworkError(error) {
     const message = safeText(error && error.message);
     if (/failed to fetch|networkerror|load failed/i.test(message)) {
@@ -239,7 +272,7 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
     if (!email || !password) return;
     loginButton.disabled = true;
     loginButtonText.textContent = 'Memeriksa akun…';
-    setMessage('Menghubungkan ke backend SALIRA V3.1…', '');
+    setMessage('Menghubungkan ke backend SALIRA…', '');
     try {
       const result = await apiPost({ action: 'login', email, password });
       if (!result || result.success !== true || !result.token || !result.user) {
