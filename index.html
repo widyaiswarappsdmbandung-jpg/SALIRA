@@ -244,7 +244,7 @@ footer strong{color:#ffd36c;letter-spacing:.08em}
   });
   function sendBridgeRequest(item) {
     if (!bridgeReady || !bridgeFrame) { bridgeQueue.push(item); return; }
-    bridgeFrame.contentWindow.postMessage({type:'SALIRA_BRIDGE_REQUEST', id:item.id, payload:item.payload}, 'https://widyaiswarappsdmbandung-jpg.github.io');
+    bridgeFrame.contentWindow.postMessage({type:'SALIRA_BRIDGE_REQUEST', id:item.id, payload:item.payload}, '*');
   }
   function apiPost(payload) {
     initBridge();
